@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.Conrete;
 using Domain.Entities;
 using Moq;
 using Ninject;
@@ -23,6 +24,10 @@ namespace WebUI.Infrastructure
         private void AddBindings()
         {
 
+            kernel.Bind<IBookRepository>().To<EFBookRepository>();
+
+            /*
+             * Мока хранилища
             Mock<IBookRepository> mock = new Mock<IBookRepository>();
             mock.Setup(m => m.Books).Returns(new List<Book>
             {
@@ -49,6 +54,7 @@ namespace WebUI.Infrastructure
                 },
             });
             kernel.Bind<IBookRepository>().ToConstant(mock.Object);
+            */
         }
 
         public object GetService(Type serviceType)

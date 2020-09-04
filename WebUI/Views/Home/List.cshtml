@@ -1,0 +1,21 @@
+﻿@using Domain.Entities
+@model IEnumerable<Book>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<div>
+    @foreach (var book in Model)
+    {
+        <div>
+            <h3>@book.Name</h3>
+            <p>@book.Description</p>
+            <i>@book.Price.ToString("# руб.")</i>
+        </div>
+        <hr />
+    }
+</div>
+

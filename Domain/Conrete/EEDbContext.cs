@@ -1,14 +1,15 @@
 ﻿using Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Domain.Conrete
 {
-    public interface IBookRepository
+    class EEDbContext : DbContext
     {
-         IEnumerable<Book> Books { get; }
+        public DbSet<Book> Books { get; set; }
     }
 }
