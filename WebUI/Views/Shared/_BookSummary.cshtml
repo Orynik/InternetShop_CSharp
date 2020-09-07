@@ -1,0 +1,22 @@
+﻿@model Domain.Entities.Book
+
+<div class="jumbotron">
+    <div class="row justify-content-between">
+        <div class="col-xs-10">
+            <h3>
+                <strong>@Model.Name</strong>
+            </h3>
+            <h4>
+                <strong>@Model.Author</strong>
+            </h4>
+        </div>
+        <div class="col-xs-2">
+            <h3>
+                <strong class="btn btn-primary pull-right ml-auto">
+                    @Model.Price.ToString("# Руб.")
+                </strong>
+            </h3>
+        </div>
+    </div>
+    <span class="lead">@Model.Description</span>
+</div>

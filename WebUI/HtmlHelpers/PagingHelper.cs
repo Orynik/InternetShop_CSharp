@@ -22,7 +22,7 @@ namespace WebUI.HtmlHelpers
                 if(i == pagingInfo.CurrentPage)
                 {
                     tag.AddCssClass("selected");
-                    tag.AddCssClass("btn btn-pimary");
+                    tag.AddCssClass("btn btn-primary");
                 }
                 else
                 {

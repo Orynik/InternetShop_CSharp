@@ -4,10 +4,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - </title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-grid.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container body-content">
-        @RenderBody()
+    <div class= "navbar navbar-inverse" role="navigation">
+        <a class="navbar-brand" href="#">Bookstore - книжный магазин</a>
+    </div>
+
+    <div class="row panels">
+        <div class="col-xs-3">
+            Тут будет контент позже
+        </div>
+        <div class="col-xs-8">
+            <div class="container body-content">
+                @RenderBody()
+            </div>
+        </div>
     </div>
 </body>
 </html>
