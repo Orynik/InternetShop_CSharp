@@ -11,12 +11,11 @@
     <div class= "navbar navbar-inverse" role="navigation">
         <a class="navbar-brand" href="#">Bookstore - книжный магазин</a>
     </div>
-
     <div class="row panels">
-        <div class="col-xs-3">
-            Тут будет контент позже
+        <div class="col-xs-3 col-3">
+            @Html.Action("Menu", "Nav")
         </div>
-        <div class="col-xs-8">
+        <div class="col-xs-8 col-9">
             <div class="container body-content">
                 @RenderBody()
             </div>
