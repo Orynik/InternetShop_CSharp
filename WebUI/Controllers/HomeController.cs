@@ -21,12 +21,6 @@ namespace WebUI.Controllers
 
         public ViewResult List(string genre, int page = 1)
         {
-
-            /*
-                TODO: Не выводит с фильтром по категориям
-                Ожидаемое поведение: Фильтрация Books и вывод по введенной категории 
-                Текущее поведение: вывод пустого model
-            */
             BooksListViewModel model = new BooksListViewModel
             {
                 Books = repository.Books
@@ -38,7 +32,9 @@ namespace WebUI.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = repository.Books.Count()
+                    TotalItems = genre == null ? 
+                        repository.Books.Count() :
+                        repository.Books.Where(b => b.Genre.TrimEnd(' ') == genre.TrimEnd(' ')).Count()
                 },
                 CurrentGenre = genre,
             };

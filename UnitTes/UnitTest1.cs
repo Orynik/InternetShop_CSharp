@@ -159,5 +159,36 @@ namespace UnitTes
 
             Assert.AreEqual(currentGenre, result);
         }
+
+        [TestMethod]
+        public void Generate_Gener_Specific()
+        {
+            Mock<IBookRepository> mock = new Mock<IBookRepository>();
+
+            mock.Setup(m => m.Books).Returns(new List<Book>
+            {
+                new Book{Id = 1, Name = "Book1",Genre = "Genre1"},
+                new Book{Id = 2, Name = "Book2",Genre = "Genre2"},
+                new Book{Id = 3, Name = "Book3",Genre = "Genre3"},
+                new Book{Id = 4, Name = "Book4",Genre = "Genre2"},
+                new Book{Id = 5, Name = "Book5",Genre = "Genre1"}
+            });
+
+            HomeController controller = new HomeController(mock.Object);
+            controller.pageSize = 3;
+
+
+
+            int res1 = ((BooksListViewModel)controller.List("Genre1").Model).PagingInfo.TotalItems;
+            int res2 = ((BooksListViewModel)controller.List("Genre2").Model).PagingInfo.TotalItems;
+            int res3 = ((BooksListViewModel)controller.List("Genre3").Model).PagingInfo.TotalItems;
+            int all = ((BooksListViewModel)controller.List(null).Model).PagingInfo.TotalItems;
+
+            Assert.AreEqual(2, res1);
+            Assert.AreEqual(2, res2);
+            Assert.AreEqual(1, res3);
+            Assert.AreEqual(5, all);
+
+        }
     }
 }
