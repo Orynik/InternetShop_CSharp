@@ -1,0 +1,39 @@
+﻿@model WebUI.Models.CartIndexViewModel
+
+@{
+    ViewBag.Title = "BookStore: Ваша корзина";
+}
+
+<h2>@ViewBag.Title</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Количество</th>
+            <th>Наименование</th>
+            <th>Цена</th>
+            <th>Сумма</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Cart.Lines)
+        {
+        <tr>
+            <td>@item.Quantity</td>
+            <td>@item.book.Name - @item.book.Author</td>
+            <td>@item.book.Price.ToString("# Руб.")</td>
+            <td>@((item.Quantity * item.book.Price).ToString("# Руб."))</td>
+        </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Итого:</td>
+            <td class="text-right">@Model.Cart.ComputeTotalValue().ToString("# Руб.")</td>
+        </tr>
+</tfoot>
+</table>
+
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Продолжить покупки</a>
+</div>
+

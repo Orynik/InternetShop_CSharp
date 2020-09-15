@@ -101,6 +101,7 @@
     <Compile Include="Conrete\EEDbContext.cs" />
     <Compile Include="Conrete\EFBookRepository.cs" />
     <Compile Include="Entities\Book.cs" />
+    <Compile Include="Entities\Cart.cs" />
     <Compile Include="IBookRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
