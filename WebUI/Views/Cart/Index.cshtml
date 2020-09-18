@@ -22,6 +22,14 @@
             <td>@item.book.Name - @item.book.Author</td>
             <td>@item.book.Price.ToString("# Руб.")</td>
             <td>@((item.Quantity * item.book.Price).ToString("# Руб."))</td>
+            <td>
+                @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                {
+                    @Html.Hidden("Id", item.book.Id);
+                    @Html.HiddenFor(x => x.ReturnUrl);
+                    <input type="submit" class="btn btn-sm btn-danger" value="Удалить" />
+                }
+            </td>
         </tr>
         }
     </tbody>

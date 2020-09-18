@@ -19,59 +19,67 @@ namespace WebUI.Controllers
             repository = repo;
         }
 
-        public ViewResult Index(string returnURL)
+        public ViewResult Index(Cart cart, string returnURL)
         {
             return View(new CartIndexViewModel
             {
-                Cart = GetCart(),
+                Cart = cart,
                 ReturnUrl = returnURL,
             });
         }
 
-        //Класс, возвращающий из сессионного хранилища состояние корзины
-        public Cart GetCart()
+        public PartialViewResult Summary(Cart cart)
         {
-            Cart cart = (Cart)Session["Cart"];
-
-            if (cart == null)
-            {
-                cart = new Cart();
-                Session["Cart"] = cart;
-            }
-
-            return cart;
+            return PartialView(cart);
         }
 
-        public RedirectToRouteResult AddToCart(int Id, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart,int Id, string returnUrl)
         {
             Book book = repository.Books
                         .FirstOrDefault(b => b.Id == Id);
-            if(book != null)
-            {
-                /*
-                   т.к GetCart() возвращает Cart, то мы можем сразу вызвать метод AddItem
-                   и добавить новую книгу.
-                */
-                GetCart().AddItem(book,1);
-            }
-
-            return RedirectToAction("Index", new { returnUrl });
-        }
-
-        public RedirectToRouteResult RemoveFromCart(int bookId, string returnUrl)
-        {
-            Book book = repository.Books
-                        .FirstOrDefault(b => b.Id == bookId);
             if (book != null)
             {
                 /*
                    т.к GetCart() возвращает Cart, то мы можем сразу вызвать метод AddItem
                    и добавить новую книгу.
                 */
-                GetCart().RemoveItem(book);
+                cart.AddItem(book,1);
+            }
+
+            return RedirectToAction("Index", new { returnUrl });
+        }
+
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int Id, string returnUrl)
+        {
+            Book book = repository.Books
+                        .FirstOrDefault(b => b.Id == Id);
+            if (book != null)
+            {
+                /*
+                   т.к GetCart() возвращает Cart, то мы можем сразу вызвать метод AddItem
+                   и добавить новую книгу.
+                */
+                cart.RemoveItem(book);
             }
 
             return RedirectToAction("Index", new { returnUrl });
         }
     }
+
+    //Класс, возвращающий из сессионного хранилища состояние корзины
+
+    //Legacy Code
+    //Из-за создание связки с CartModelBinders
+    /* public Cart GetCart()
+    {
+        Cart cart = (Cart)Session["Cart"];
+
+        if (cart == null)
+        {
+            cart = new Cart();
+            Session["Cart"] = cart;
+        }
+
+        return cart;
+    }*/
 }

@@ -3,13 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - </title>
+    <title>Bookstore - @ViewBag.Title </title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-grid.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class= "navbar navbar-inverse" role="navigation">
         <a class="navbar-brand" href="#">Bookstore - книжный магазин</a>
+        <div class="ml-auto">
+            @Html.Action("Summary","Cart")
+        </div>
     </div>
     <div class="row panels">
         <div class="col-xs-3 col-3">
