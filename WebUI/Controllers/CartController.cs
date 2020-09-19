@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.Abstract;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace WebUI.Controllers
     {
         private Cart cart = new Cart();
         private IBookRepository repository;
+        private IOrderProcessor orderProcessor;
 
-        public CartController(IBookRepository repo)
+        public CartController(IBookRepository repo, IOrderProcessor processor)
         {
             repository = repo;
+            orderProcessor = processor;
         }
 
         public ViewResult Index(Cart cart, string returnURL)
@@ -33,17 +36,13 @@ namespace WebUI.Controllers
             return PartialView(cart);
         }
 
-        public RedirectToRouteResult AddToCart(Cart cart,int Id, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int Id, string returnUrl)
         {
             Book book = repository.Books
                         .FirstOrDefault(b => b.Id == Id);
             if (book != null)
             {
-                /*
-                   т.к GetCart() возвращает Cart, то мы можем сразу вызвать метод AddItem
-                   и добавить новую книгу.
-                */
-                cart.AddItem(book,1);
+                cart.AddItem(book, 1);
             }
 
             return RedirectToAction("Index", new { returnUrl });
@@ -55,31 +54,35 @@ namespace WebUI.Controllers
                         .FirstOrDefault(b => b.Id == Id);
             if (book != null)
             {
-                /*
-                   т.к GetCart() возвращает Cart, то мы можем сразу вызвать метод AddItem
-                   и добавить новую книгу.
-                */
                 cart.RemoveItem(book);
             }
 
             return RedirectToAction("Index", new { returnUrl });
         }
-    }
 
-    //Класс, возвращающий из сессионного хранилища состояние корзины
-
-    //Legacy Code
-    //Из-за создание связки с CartModelBinders
-    /* public Cart GetCart()
-    {
-        Cart cart = (Cart)Session["Cart"];
-
-        if (cart == null)
+        public ViewResult CheckOut()
         {
-            cart = new Cart();
-            Session["Cart"] = cart;
+            return View(new ShopingDetails());
         }
 
-        return cart;
-    }*/
+        [HttpPost]
+        public ViewResult CheckOut(Cart cart, ShopingDetails shopingDetails)
+        {
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Извините, корзина пуста!");
+            }
+
+            if (ModelState.IsValid)
+            {
+                orderProcessor.ProcessOrder(cart, shopingDetails);
+                cart.Clear();
+                return View("Complited");
+            }
+            else
+            {
+                return View(new ShopingDetails());
+            }
+        }
+    }
 }

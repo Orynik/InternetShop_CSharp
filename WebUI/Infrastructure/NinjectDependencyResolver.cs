@@ -1,10 +1,12 @@
 ﻿using Domain;
+using Domain.Abstract;
 using Domain.Conrete;
 using Domain.Entities;
 using Moq;
 using Ninject;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,35 +28,13 @@ namespace WebUI.Infrastructure
 
             kernel.Bind<IBookRepository>().To<EFBookRepository>();
 
-            /*
-             * Мока хранилища
-            Mock<IBookRepository> mock = new Mock<IBookRepository>();
-            mock.Setup(m => m.Books).Returns(new List<Book>
+            EmailSetting emailSetting = new EmailSetting
             {
-                new Book
-                {
-                    Name = "ewqeqweqwe",
-                    Author = "Ya",
-                    Price = 20,
-                    Description = "Opisanie",
-                },
-                new Book
-                {
-                    Name = "ttwet",
-                    Author = "Ya",
-                    Price = 10000,
-                    Description = "Descr",
-                },
-                new Book
-                {
-                    Name = "qweqwe",
-                    Author = "Ya",
-                    Price = 30000000,
-                    Description = "Opisanie",
-                },
-            });
-            kernel.Bind<IBookRepository>().ToConstant(mock.Object);
-            */
+                WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
+            };
+
+            kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>()
+                .WithConstructorArgument("setting", emailSetting);
         }
 
         public object GetService(Type serviceType)
