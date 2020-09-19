@@ -8,19 +8,21 @@
     <link href="~/Content/bootstrap-grid.min.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
-<body>
+<body class="container-fluid">
     <div class= "navbar navbar-inverse" role="navigation">
-        <a class="navbar-brand" href="#">Bookstore - книжный магазин</a>
+        <div>
+            <a class="navbar-brand" href="#">Bookstore</a>
+        </div>
         <div class="ml-auto">
             @Html.Action("Summary", "Cart")
         </div>
     </div>
     <div class="row panels">
-        <div class="col-xs-3 col-3">
+        <div class="col-xs-3 col-sm-3">
             @Html.Action("Menu", "Nav")
         </div>
-        <div class="col-xs-8 col-9">
-            <div class="container body-content">
+        <div class="col-xs-8 col-sm-9">
+            <div>
                 @RenderBody()
             </div>
         </div>

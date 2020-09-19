@@ -1,7 +1,14 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿body{
+    width: 100%;
+    height: 100vh;
 }
+
+html{
+    font-size: 14px;
+}
+
+
+/*Error form style*/
 
 .field-validation-error{
     color: #f00;
@@ -38,3 +45,60 @@ textarea {
     max-width: 280px;
 }
 
+/*Navbar style*/
+
+.navbar-brand{
+    color: black;
+    font-size: 2.5em;
+}
+
+.navbar {
+    background: #007bff;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.btn-cart{
+    background-color: cyan;
+    border-radius: 3px;
+}
+
+btn-cart > a{
+    display: block;
+}
+
+/*Genre styles*/
+
+.genre-btn {
+    background-color: #6f42c1;
+    word-wrap: break-word;
+}
+
+.genre-btn:first-child{
+    margin-top: 10px;
+}
+
+.genre-btn:hover {
+    background-color: #20c997;
+}
+
+.genre-btn-selected {
+    background-color: #ffc107;
+}
+
+.order-message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cart-Title{
+    text-align: center;
+}
+
+.table {
+    border-top: 1px solid gainsboro;    
+}
+
+.form-wrapper{
+    text-align: center;
+}

@@ -3,42 +3,44 @@
 @{
     ViewBag.Title = "BookStore: Ваш заказ";
 }
+<div class="form-wrapper">
+    <h2>Оформите заказ</h2>
+    <p>Пожалуста, введите ваши контактные данные.</p>
 
-<h2>Оформите заказ</h2>
-<p>Пожалуста, введите ваши контактные данные.</p>
-
-@using (@Html.BeginForm())
-{
-    @Html.ValidationSummary()
-    <h3>Данные</h3>
-    <div class="form-group">
-        <label>Ваше имя:</label>
-        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
-    </div>
-
-    <h3>Адрес доставки</h3>
-    foreach (var propetry in ViewData.ModelMetadata.Properties)
+    @using (@Html.BeginForm())
     {
-        if (propetry.PropertyName != "Name" && propetry.PropertyName != "WrapGift")
+        @Html.ValidationSummary()
+        <h3>Данные</h3>
+        <div class="form-group">
+            <label>Ваше имя:</label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control mx-auto" })
+        </div>
+
+        <h3>Адрес доставки</h3>
+        foreach (var propetry in ViewData.ModelMetadata.Properties)
         {
-            <div class="form-group">
-                <label>
-                    @(propetry.DisplayName ?? propetry.PropertyName)
-                </label>
-                @Html.TextBox(propetry.PropertyName, null, new { @class = "form-control" })
-            </div>
+            if (propetry.PropertyName != "Name" && propetry.PropertyName != "WrapGift")
+            {
+                <div class="form-group">
+                    <label>
+                        @(propetry.DisplayName ?? propetry.PropertyName)
+                    </label>
+                    @Html.TextBox(propetry.PropertyName, null, new { @class = "form-control mx-auto" })
+                </div>
+            }
         }
+        <h3>Опции</h3>
+        <div class="form-group">
+            <label>
+                @Html.EditorFor(x => x.WrapGift)
+                Использовать подарочную обертку?
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="submit" class="btn btn-secondary" value="Обработать заказ" />
+            </label>
+        </div>
     }
-    <h3>Опции</h3>
-    <div class="form-group">
-        <label>
-            @Html.EditorFor(x => x.WrapGift)
-            Использовать подарочную обертку?
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            <input type="submit" class="btn btn-secondary" value="Обработать заказ" />
-        </label>
-    </div>
-}
+
+</div>

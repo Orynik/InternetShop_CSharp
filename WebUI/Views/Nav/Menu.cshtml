@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<string>
 
 
-@Html.ActionLink("Домой", "List", "Home", null, new { @class = "btn btn-block btn-default btn-lg"})
+@Html.ActionLink("Домой", "List", "Home", null, new { @class = "btn genre-btn btn-block btn-default btn-lg"})
 
 @foreach (var link in Model)
 {
@@ -12,8 +12,8 @@
     page = 1,
     }, new
         {
-            @class = "btn btn-block btn-default btn-lg"
-            + (link.TrimEnd(' ') == ViewBag.SelectedGenre ? " btn-primary" : "")
+            @class = "genre-btn btn btn-block btn-default btn-lg"
+            + (link.TrimEnd(' ') == ViewBag.SelectedGenre ? " genre-btn-selected" : "")
         }   
     );
 }

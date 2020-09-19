@@ -4,7 +4,7 @@
     ViewBag.Title = "BookStore: Ваша корзина";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 class="cart-Title">@ViewBag.Title</h2>
 <table class="table">
     <thead>
         <tr>
@@ -36,7 +36,7 @@
     <tfoot>
         <tr>
             <td>Итого:</td>
-            <td class="text-right">@Model.Cart.ComputeTotalValue().ToString("# Руб.")</td>
+            <td class="text-right" colspan="5">@Model.Cart.ComputeTotalValue().ToString("# Руб.")</td>
         </tr>
 </tfoot>
 </table>
