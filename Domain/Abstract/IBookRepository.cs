@@ -10,5 +10,6 @@ namespace Domain
     public interface IBookRepository
     {
          IEnumerable<Book> Books { get; }
+        void SaveBook(Book book);
     }
 }
