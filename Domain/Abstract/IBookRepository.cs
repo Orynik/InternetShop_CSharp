@@ -9,8 +9,9 @@ namespace Domain
 {
     public interface IBookRepository
     {
-         IEnumerable<Book> Books { get; }
+        IEnumerable<Book> Books { get; }
         void SaveBook(Book book);
         void DeleteBook(Book book);
+        void CreateBook(Book book);
     }
 }

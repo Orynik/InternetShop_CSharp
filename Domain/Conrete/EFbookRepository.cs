@@ -44,5 +44,11 @@ namespace Domain.Conrete
             }
             context.SaveChanges();
         }
+
+        public void CreateBook(Book book)
+        {
+            context.Books.Add(book);
+            context.SaveChanges();
+        }
     }
 }

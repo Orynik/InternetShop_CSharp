@@ -116,7 +116,7 @@ namespace UnitTes
 
             ActionResult result = controller.Delete(book);
 
-            mock.Verify(m => m.DeleteBook(book));
+            mock.Verify(m => m.CreateBook(book));
 
             Assert.IsNotInstanceOfType(result, typeof(ViewResult));
         }

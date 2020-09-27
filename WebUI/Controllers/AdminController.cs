@@ -22,6 +22,20 @@ namespace WebUI.Controllers
             return View(repository.Books);
         }
 
+        public ViewResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Book book)
+        {
+            repository.CreateBook(book);
+            TempData["message"] = string.Format("Книга \"{0}\" была добавлена в базу.", book.Name);
+            return RedirectToAction("Index");
+        }
+
+
         public ViewResult Delete(int Id)
         {
             Book book = repository.Books.FirstOrDefault(b => b.Id == Id);
