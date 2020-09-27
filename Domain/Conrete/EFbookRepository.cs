@@ -35,5 +35,14 @@ namespace Domain.Conrete
             context.SaveChanges();
 
         }
+        public void DeleteBook(Book book)
+        {
+            if (book.Id > 0)
+            {
+                /*context.Books.Remove(book);*/
+                context.Database.ExecuteSqlCommand("DELETE FROM Books WHERE Id = " + book.Id);
+            }
+            context.SaveChanges();
+        }
     }
 }

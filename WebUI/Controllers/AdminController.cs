@@ -22,6 +22,20 @@ namespace WebUI.Controllers
             return View(repository.Books);
         }
 
+        public ViewResult Delete(int Id)
+        {
+            Book book = repository.Books.FirstOrDefault(b => b.Id == Id);
+            return View(book);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Book book)
+        {
+            repository.DeleteBook(book);
+            TempData["message"] = string.Format("Книга \"{0}\" удалена из базы.", book.Name);
+            return RedirectToAction("Index");
+        }
+
         public ViewResult Edit(int Id)
         {
             Book book = repository.Books.FirstOrDefault(b => b.Id == Id);

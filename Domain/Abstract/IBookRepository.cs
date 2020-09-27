@@ -11,5 +11,6 @@ namespace Domain
     {
          IEnumerable<Book> Books { get; }
         void SaveBook(Book book);
+        void DeleteBook(Book book);
     }
 }
